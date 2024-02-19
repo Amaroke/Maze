@@ -3,10 +3,13 @@ class UnionFind:
         self.liste = elements
 
     def find(self, element):
-        pass
+        return self.liste.index(element)
 
     def union(self, element1, element2):
-        pass
+        indice1 = self.liste.index(element1)
+        indice2 = self.liste.index(element2)
+        if indice1<indice2:
+            
 
     def number_of_classes(self):
-        pass
+        return len(self.liste)
