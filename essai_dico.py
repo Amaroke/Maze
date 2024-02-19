@@ -3,6 +3,7 @@ class UnionFind:
         self.dictionnaire = {}
         for element in elements:
             self.dictionnaire[element] = hash(element)
+        self.nb_classe = len(self.dictionnaire)
 
     def find(self, element):
         return self.dictionnaire[element]
@@ -27,15 +28,10 @@ class UnionFind:
             self.little_union(hashage_elem_1, self.find_friends(element2))
         else:
             self.dictionnaire[element1] = hashage_elem_2
+        self.nb_classe -= 1
 
     def number_of_classes(self):
-        compteur = 0
-        deja_vu = []
-        for value in self.dictionnaire.values():
-            if value not in deja_vu:
-                compteur += 1
-                deja_vu.append(value)
-        return compteur
+        return self.nb_classe
 
     def __repr__(self):
         return str(self.dictionnaire)
