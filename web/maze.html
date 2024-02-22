@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+    <!-- Partie réservée au chargement de pyscript, permettant d'exécuter du python dans du web. -->
+    <link
+      rel="stylesheet"
+      href="https://pyscript.net/releases/2024.1.1/core.css"
+    />
+    <script
+      type="module"
+      src="https://pyscript.net/releases/2024.1.1/core.js"
+    ></script>
+
+    <style>
+      #loading {
+        outline: none;
+        border: none;
+        background: transparent;
+      }
+    </style>
+    <script type="module">
+      const loading = document.getElementById("loading");
+      addEventListener("py:ready", () => loading.close());
+      loading.showModal();
+    </script>
+    <!-- Fin du chargement de pyscript. -->
+
+    <!-- On charge notre css-->
+    <link rel="stylesheet" href="./maze.css" />
+
+    <title>Maze</title>
+  </head>
+
+  <body>
+    <section class="pyscript">
+      <h1>Maze</h1>
+
+      <!-- On charge notre script python -->
+      <script type="py" src="./python/maze.py"></script>
+
+      <table class="maze">
+        <tr>
+          <td class="case01 entree"></td>
+          <td class="case01"></td>
+          <td class="case10"></td>
+        </tr>
+        <tr>
+          <td class="case00"></td>
+          <td class="case01"></td>
+          <td class="case11"></td>
+        </tr>
+        <tr>
+          <td class="case11 sortie"></td>
+          <td class="case11"></td>
+          <td class="case11"></td>
+        </tr>
+      </table>
+
+      <div id="terminal">
+        <script id="console" type="py" terminal></script>
+      </div>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+.case11 {
+    width: 100px;
+    height: 100px;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.case10 {
+    width: 100px;
+    height: 100px;
+    border-right: 1px solid black;
+}
+
+.case01 {
+    width: 100px;
+    height: 100px;
+    border-bottom: 1px solid black;
+}
+
+.case00 {
+    width: 100px;
+    height: 100px;
+}
+
+.maze {
+    display: flex;
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+}
+
+.entree {
+    background-color: green;
+}
+
+.sortie {
+    background-color: red;
+}
