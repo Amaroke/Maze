@@ -1,6 +1,5 @@
 from random import randint
-from pyweb import pydom
-
+#from pyweb import pydom
 
 class Cell:
     """
@@ -250,5 +249,43 @@ class Maze:
         predecessors = self.graph.predecessors(self.entrance)
         return self.graph.build_path(self.entrance, self.exit, predecessors)
 
+class Player:
+    def __init__(self, max, walls):
+        self.height = 0
+        self.width = 0
+        self.walls = walls
+        self.max = max
+    def move_right(self):
+        if self.width<max:
+            if (Cell(self.width, self.height, self.max, self.max),
+                Cell(self.width+1, self.height, self.max, self.max)) not in self.walls:
+                self.width +=1
+    def move_left(self):
+        if (Cell(self.width-1, self.height, self.max, self.max),
+        Cell(self.width, self.height, self.max, self.max)) not in self.walls:
+                self.width +=1
+    def move_high(self):
+        if self.height != 0:
+            if (Cell(self.width, self.height-1, self.max, self.max),
+            Cell(self.width, self.height, self.max, self.max)) not in self.walls:
+                self.height -=1
+    def move_down(self):
+        if self.height<self.max:
+            if (Cell(self.width, self.height, self.max, self.max),
+            Cell(self.width, self.height+1, self.max, self.max)) not in self.walls:
+                self.height +=1
 
-GAME = Maze(10, 10)
+
+class Game:
+    def __init__(self, cote):
+        self.maze = Maze(cote, cote)
+        self.player = Player(cote, self.maze.walls)
+
+    def solve(self):
+        self.maze.solve()
+
+
+
+
+
+
