@@ -84,7 +84,7 @@ class Game:
             if y > 0:
                 self.player = (x, y - 1)
         else:
-            if x < self.maze.height:
+            if y < self.maze.height:
                 self.player = (x, y + 1)
 
     def has_won(self) -> bool:
