@@ -1,4 +1,5 @@
 from maze import Maze
+from cell import Cell
 
 
 class Game:
@@ -15,23 +16,55 @@ class Game:
         D : Il y a deux murs"""
         cells = ""
         for cell in self.maze.cells:
-            if (cell, cell.neighbors[2]) not in self.maze.walls and (
-                cell,
-                cell.neighbors[3],
-            ) not in self.maze.walls:
-                cells += "A"
-            elif (cell, cell.neighbors[2]) in self.maze.walls and (
-                cell,
-                cell.neighbors[3],
-            ) not in self.maze.walls:
-                cells += "B"
-            elif (cell, cell.neighbors[2]) not in self.maze.walls and (
-                cell,
-                cell.neighbors[3],
-            ) in self.maze.walls:
-                cells += "C"
+            if cell.j == self.maze.height:
+                if cell.i == self.maze.width:
+                    cells += "D"
+                elif (
+                    cell,
+                    Cell(cell.i + 1, cell.j, self.maze.width, self.maze.height),
+                ) in self.maze.walls:
+                    cells += "D"
+                elif (
+                    cell,
+                    Cell(cell.i + 1, cell.j, self.maze.width, self.maze.height),
+                ) not in self.maze.walls:
+                    cells += "C"
+            elif cell.i == self.maze.width:
+                if (
+                    cell,
+                    Cell(cell.i, cell.j + 1, self.maze.width, self.maze.height),
+                ) in self.maze.walls:
+                    cells += "D"
+                elif (
+                    cell,
+                    Cell(cell.i, cell.j + 1, self.maze.width, self.maze.height),
+                ) not in self.maze.walls:
+                    cells += "B"
             else:
-                cells += "D"
+                if (
+                    cell,
+                    Cell(cell.i + 1, cell.j, self.maze.width, self.maze.height),
+                ) not in self.maze.walls:
+                    if (
+                        cell,
+                        Cell(cell.i, cell.j + 1, self.maze.width, self.maze.height),
+                    ) not in self.maze.walls:
+                        cells += "A"
+                    else:
+                        cells += "C"
+                elif (
+                    cell,
+                    Cell(cell.i, cell.j + 1, self.maze.width, self.maze.height),
+                ) not in self.maze.walls:
+                    if (
+                        cell,
+                        Cell(cell.i + 1, cell.j, self.maze.width, self.maze.height),
+                    ) not in self.maze.walls:
+                        cells += "A"
+                    else:
+                        cells += "B"
+                else:
+                    cells += "D"
         return {
             "laby": cells,
             "pos_player": str(self.player),
@@ -41,14 +74,18 @@ class Game:
 
     def move(self, direction: str):
         x, y = self.player
-        if direction == "up":
-            self.player = (x, y - 1)
-        elif direction == "down":
-            self.player = (x, y + 1)
+        if direction == "right":
+            if x < self.maze.width:
+                self.player = (x + 1, y)
         elif direction == "left":
-            self.player = (x + 1, y)
+            if x > 0:
+                self.player = (x - 1, y)
+        elif direction == "up":
+            if y > 0:
+                self.player = (x, y - 1)
         else:
-            self.player = (x - 1, y)
+            if x < self.maze.height:
+                self.player = (x, y + 1)
 
     def has_won(self) -> bool:
         if self.player == (self.maze.width, self.maze.height):

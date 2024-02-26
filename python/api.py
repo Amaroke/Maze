@@ -1,13 +1,9 @@
-# FORME DE BASE MODIFIE SELON CE QUE TU VEUX FAIRE ET TES FONCTIONS PYTHON
-
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from game import Game
 
 app = Flask(__name__)
-CORS(
-    app
-)  # Ca c'est la sécurité des navigateurs comme je t'avais expliqué avec ça tu peux faire des requêtes depuis ton front-end sans problème
+CORS(app)
 game = Game(10, 10)
 
 

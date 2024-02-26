@@ -1,43 +1,26 @@
-<!-- PAREIL ICI C'EST PAR DEFAUT QUE T'ES UNE IDEE DE LA STRUCTURE ET DU FONCTIONNEMENT FAUDRA ADAPTER AU RESTE -->
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Maze</title>
-    <script src="maze.js" defer></script>
-  </head>
-  <body>
-    <h1>Maze</h1>
 
-    <div id="gameDisplay">
-      <table class="maze">
-        <tr>
-          <td class="case01 entree"></td>
-          <td class="case01"></td>
-          <td class="case10"></td>
-        </tr>
-        <tr>
-          <td class="case00"></td>
-          <td class="case01"></td>
-          <td class="case11"></td>
-        </tr>
-        <tr>
-          <td class="case11 sortie"></td>
-          <td class="case11"></td>
-          <td class="case11"></td>
-        </tr>
-      </table>
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maze</title>
+  <script src="maze.js" defer></script>
+</head>
 
-    <button onclick="move('up')">Move Up</button>
-    <button onclick="move('down')">Move Down</button>
-    <button onclick="move('left')">Move Left</button>
-    <button onclick="move('right')">Move Right</button>
+<body>
+  <h1>Maze</h1>
+  <div id="gameDisplay">
+  </div>
 
-    <div id="gameStatus">
-      <!-- Game status will be shown here -->
-    </div>
-  </body>
+  <button onclick="move('up')">Move Up</button>
+  <button onclick="move('down')">Move Down</button>
+  <button onclick="move('left')">Move Left</button>
+  <button onclick="move('right')">Move Right</button>
+
+  <div id="gameStatus">
+    <!-- Game status will be shown here -->
+  </div>
+</body>
+
 </html>
