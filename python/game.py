@@ -89,5 +89,5 @@ class Game:
 
     def has_won(self) -> bool:
         if self.player == (self.maze.width, self.maze.height):
-            return True
-        return False
+            return "Vous avez gagné !"
+        return "Contniuer à jouer !"
