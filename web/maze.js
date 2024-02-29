@@ -4,6 +4,7 @@ async function displayGame() {
 
     const laby = await separerLaby(gameData.laby, gameData.taille);
     const state = gameData.state;
+    alert(laby)
 
     let contenuTableau = '<table class="maze">';
     for (let i = 0; i < laby.length; i++) {
@@ -13,13 +14,13 @@ async function displayGame() {
         for (let j = 0; j < ligne.length; j++) {
             const caractere = ligne[j];
             if (caractere === "A") {
-                contenuTableau += '<td class="case00"></td>';
+                contenuTableau += '<td class="caseA">A</td>';
             } else if (caractere === "B") {
-                contenuTableau += '<td class="case10"></td>';
+                contenuTableau += '<td class="caseB">B</td>';
             } else if (caractere === "c") {
-                contenuTableau += '<td class="case01"></td>';
+                contenuTableau += '<td class="caseC">C</td>';
             } else if (caractere === "D") {
-                contenuTableau += '<td class="case11"></td>';
+                contenuTableau += '<td class="caseD">D</td>';
             }
         }
         contenuTableau += '</tr>';

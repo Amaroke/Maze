@@ -16,8 +16,8 @@ class Game:
         D : Il y a deux murs"""
         cells = ""
         for cell in self.maze.cells:
-            if cell.j == self.maze.height:
-                if cell.i == self.maze.width:
+            if cell.j == self.maze.height - 1:
+                if cell.i == self.maze.width - 1:
                     cells += "D"
                 elif (
                     cell,
@@ -29,7 +29,7 @@ class Game:
                     Cell(cell.i + 1, cell.j, self.maze.width, self.maze.height),
                 ) not in self.maze.walls:
                     cells += "C"
-            elif cell.i == self.maze.width:
+            elif cell.i == self.maze.width - 1:
                 if (
                     cell,
                     Cell(cell.i, cell.j + 1, self.maze.width, self.maze.height),
@@ -65,6 +65,7 @@ class Game:
                         cells += "B"
                 else:
                     cells += "D"
+        print(cells)
         return {
             "laby": cells,
             "pos_player": str(self.player),
@@ -119,3 +120,8 @@ class Game:
         if self.player == (self.maze.width, self.maze.height):
             return "Vous avez gagné !"
         return "Contniuer à jouer !"
+
+
+if __name__ == "__main__":
+    game = Game(10, 10)
+    game.display()

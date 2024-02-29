@@ -1,23 +1,23 @@
-.case11 {
+.caseD {
     width: 100px;
     height: 100px;
     border-right: 1px solid black;
     border-bottom: 1px solid black;
 }
 
-.case10 {
+.caseB {
     width: 100px;
     height: 100px;
     border-right: 1px solid black;
 }
 
-.case01 {
+.caseC {
     width: 100px;
     height: 100px;
     border-bottom: 1px solid black;
 }
 
-.case00 {
+.caseA {
     width: 100px;
     height: 100px;
 }
