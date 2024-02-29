@@ -24,10 +24,7 @@ class Game:
                     Cell(cell.i + 1, cell.j, self.maze.width, self.maze.height),
                 ) in self.maze.walls:
                     cells += "D"
-                elif (
-                    cell,
-                    Cell(cell.i + 1, cell.j, self.maze.width, self.maze.height),
-                ) not in self.maze.walls:
+                else:
                     cells += "C"
             elif cell.i == self.maze.width - 1:
                 if (
@@ -35,10 +32,7 @@ class Game:
                     Cell(cell.i, cell.j + 1, self.maze.width, self.maze.height),
                 ) in self.maze.walls:
                     cells += "D"
-                elif (
-                    cell,
-                    Cell(cell.i, cell.j + 1, self.maze.width, self.maze.height),
-                ) not in self.maze.walls:
+                else:
                     cells += "B"
             else:
                 if (
@@ -66,9 +60,10 @@ class Game:
                 else:
                     cells += "D"
         print(cells)
+
         return {
             "laby": cells,
-            "pos_player": str(self.player),
+            "pos_player": self.player,
             "taille": str(self.maze.width),
             "state": self.has_won(),
         }
@@ -76,41 +71,37 @@ class Game:
     def move(self, direction: str):
         x, y = self.player
         if direction == "right":
-            if (
-                x < self.maze.width
-                and (
+            if (x + 1 < self.maze.width) and (
+                (
                     Cell(x, y, self.maze.width, self.maze.height),
                     Cell(x + 1, y, self.maze.width, self.maze.height),
                 )
                 not in self.maze.walls
             ):
                 self.player = (x + 1, y)
-        elif (
-            direction == "left"
-            and (
-                Cell(x - 1, y, self.maze.width, self.maze.height),
-                Cell(x, y, self.maze.width, self.maze.height),
-            )
-            not in self.maze.walls
-        ):
-            if x > 0:
+        elif direction == "left":
+            if (x - 1 >= 0) and (
+                (
+                    Cell(x - 1, y, self.maze.width, self.maze.height),
+                    Cell(x, y, self.maze.width, self.maze.height),
+                )
+                not in self.maze.walls
+            ):
                 self.player = (x - 1, y)
-        elif (
-            direction == "up"
-            and (
-                Cell(x, y, self.maze.width, self.maze.height),
-                Cell(x, y + 1, self.maze.width, self.maze.height),
-            )
-            not in self.maze.walls
-        ):
-            if y > 0:
-                self.player = (x, y - 1)
-        else:
-            if (
-                y < self.maze.height
-                and (
+        elif direction == "up":
+            if (y - 1 >= 0) and (
+                (
                     Cell(x, y - 1, self.maze.width, self.maze.height),
                     Cell(x, y, self.maze.width, self.maze.height),
+                )
+                not in self.maze.walls
+            ):
+                self.player = (x, y - 1)
+        elif direction == "down":
+            if (y + 1 < self.maze.height) and (
+                (
+                    Cell(x, y, self.maze.width, self.maze.height),
+                    Cell(x, y + 1, self.maze.width, self.maze.height),
                 )
                 not in self.maze.walls
             ):
@@ -119,7 +110,7 @@ class Game:
     def has_won(self) -> bool:
         if self.player == (self.maze.width, self.maze.height):
             return "Vous avez gagné !"
-        return "Contniuer à jouer !"
+        return "Continuer à jouer !"
 
 
 if __name__ == "__main__":

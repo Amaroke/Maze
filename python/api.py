@@ -4,7 +4,7 @@ from game import Game
 
 app = Flask(__name__)
 CORS(app)
-game = Game(5, 5)
+game = Game(25, 25)
 
 
 @app.route("/display", methods=["GET"])
@@ -25,4 +25,4 @@ def has_won():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
