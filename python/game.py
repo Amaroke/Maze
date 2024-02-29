@@ -75,16 +75,44 @@ class Game:
     def move(self, direction: str):
         x, y = self.player
         if direction == "right":
-            if x < self.maze.width:
+            if (
+                x < self.maze.width
+                and (
+                    Cell(x, y, self.maze.width, self.maze.height),
+                    Cell(x + 1, y, self.maze.width, self.maze.height),
+                )
+                not in self.maze.walls
+            ):
                 self.player = (x + 1, y)
-        elif direction == "left":
+        elif (
+            direction == "left"
+            and (
+                Cell(x - 1, y, self.maze.width, self.maze.height),
+                Cell(x, y, self.maze.width, self.maze.height),
+            )
+            not in self.maze.walls
+        ):
             if x > 0:
                 self.player = (x - 1, y)
-        elif direction == "up":
+        elif (
+            direction == "up"
+            and (
+                Cell(x, y, self.maze.width, self.maze.height),
+                Cell(x, y + 1, self.maze.width, self.maze.height),
+            )
+            not in self.maze.walls
+        ):
             if y > 0:
                 self.player = (x, y - 1)
         else:
-            if y < self.maze.height:
+            if (
+                y < self.maze.height
+                and (
+                    Cell(x, y - 1, self.maze.width, self.maze.height),
+                    Cell(x, y, self.maze.width, self.maze.height),
+                )
+                not in self.maze.walls
+            ):
                 self.player = (x, y + 1)
 
     def has_won(self) -> bool:
