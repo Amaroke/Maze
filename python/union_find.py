@@ -35,12 +35,12 @@ class UnionFind:
 def test():
     """Test all the methods of UnionFind"""
     uf = UnionFind([1, 2, 3])
-    assert uf.count() == 3
+    assert uf.number_of_classes() == 3
     assert uf.find(1) == 1
     assert uf.find(2) == 2
     assert uf.find(3) == 3
     uf.union(1, 2)
-    assert uf.count() == 2
+    assert uf.number_of_classes() == 2
     assert uf.find(2) == 1
     assert uf.find(1) == 1
     assert uf.find(3) == 3
