@@ -16,12 +16,12 @@ async function displayGame() {
     }
 
     let contenuTableau = '';
-    for (let i = 0; i < laby_rotate.length; i++) {
-        const ligne = laby_rotate[i];
+    for (let i = 0; i < laby.length; i++) {
+        const ligne = laby[i];
 
         for (let j = 0; j < ligne.length; j++) {
             const caractere = ligne[j];
-            if (pos_player[0] === i && pos_player[1] === j) {
+            if (pos_player[0] === j && pos_player[1] === i) {
                 if (caractere === "A") {
                     contenuTableau += '<div class="caseA player"></div>';
                 } else if (caractere === "B") {
