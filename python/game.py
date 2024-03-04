@@ -64,7 +64,7 @@ class Game:
         return {
             "laby": cells,
             "pos_player": self.player,
-            "taille": str(self.maze.width),
+            "taille": self.maze.width,
             "state": self.has_won(),
         }
 
