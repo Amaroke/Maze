@@ -44,9 +44,9 @@ class Cell:
         return self.i == other.i and self.j == other.j
 
     def __lt__(self, other):
-        if self.i < other.i:
+        if self.j < other.j:
             return True
-        if self.i == other.i and self.j < other.j:
+        if self.j == other.j and self.i < other.i:
             return True
         return False
 

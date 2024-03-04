@@ -1,4 +1,4 @@
-from random import randint
+from random import choice
 from cell import Cell
 from union_find import UnionFind
 from graph import Graph
@@ -18,7 +18,7 @@ class Maze:
         """
         self.width = width
         self.height = height
-        self.cells = self._init_cells()
+        self.cells = sorted(self._init_cells())
         self.union_find = UnionFind(self.cells)
         self.graph = Graph(self)
         self.walls = self._init_walls()
@@ -83,12 +83,11 @@ class Maze:
         A cell is represented with a space if it's not in the path
         or with an hashtag if it's in the path(=solution)."""
         list_solution = []
-        for i in range(self.width):
-            for j in range(self.height):
-                if Cell(j, i, self.width, self.height) in self.path:
-                    list_solution.append("#")
-                else:
-                    list_solution.append(" ")
+        for cell in self.cells:
+            if cell in self.path:
+                list_solution.append("#")
+            else:
+                list_solution.append(" ")
         return list_solution
 
     def __repr__(self):
@@ -97,12 +96,11 @@ class Maze:
     def generate(self):
         """Generate a perfect maze with the Kruskal algorithm"""
         while self.union_find.number_of_classes() > 1:
-            index = randint(0, len(self.walls) - 1)
-            wall = self.walls[index]
+            wall = choice(self.walls)
             if self.union_find.find(wall[0]) != self.union_find.find(wall[1]):
                 self.union_find.union(wall[0], wall[1])
                 self.graph.add_edge(wall[0], wall[1])
-                self.walls.pop(index)
+                self.walls.remove(wall)
 
     def solve(self):
         """Find a path from the entrance to the exit.
@@ -114,7 +112,9 @@ class Maze:
 def tests():
     """tests the methods"""
     maze = Maze(10, 10)
-    assert len(maze.walls) == 81, "There is not the right number of walls. "
+    assert len(maze.cells) == 100
+    assert maze.cells[-1] == Cell(9, 9, 10, 10)
+    assert len(maze.walls) == 81, "There is not the right number of walls."
 
 
 if __name__ == "__main__":
