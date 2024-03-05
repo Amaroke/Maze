@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Maze</title>
-    <script src="maze.js" defer></script>
-    <link rel="stylesheet" href="maze.css" />
-  </head>
 
-  <body>
-    <h1>Maze</h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maze</title>
+  <script src="maze.js" defer></script>
+  <link rel="stylesheet" href="maze.css" />
+</head>
 
+<body>
+  <h1>Maze</h1>
+  <div id="playing">
     <button onclick="move('up')">Move Up</button>
     <button onclick="move('down')">Move Down</button>
     <button onclick="move('left')">Move Left</button>
     <button onclick="move('right')">Move Right</button>
+  </div>
+  <button onclick="restart()" id="win">Restart</button>
 
-    <div id="gameStatus"></div>
+  <div id="gameStatus"></div>
 
-    <div id="gameDisplay" class="gameDisplay"></div>
-  </body>
+  <div id="gameDisplay" class="gameDisplay"></div>
+</body>
+
 </html>

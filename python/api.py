@@ -4,7 +4,7 @@ from game import Game
 
 app = Flask(__name__)
 CORS(app)
-game = Game(25, 25)
+game = Game(3, 3)
 
 
 @app.route("/display", methods=["GET"])
@@ -16,12 +16,11 @@ def display():
 def move():
     direction = request.json["direction"]
     game.move(direction)
-    return jsonify(game.display())
 
 
-@app.route("/has_won", methods=["GET"])
-def has_won():
-    return jsonify(game.has_won())
+@app.route("/restart", methods=["POST"])
+def restart():
+    game.restart()
 
 
 if __name__ == "__main__":

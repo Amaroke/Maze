@@ -108,11 +108,10 @@ class Game:
                 self.player = (x, y + 1)
 
     def has_won(self) -> bool:
-        if self.player == (self.maze.width, self.maze.height):
+        if self.player == (self.maze.width - 1, self.maze.height - 1):
             return "Vous avez gagné !"
         return "Continuer à jouer !"
 
-
-if __name__ == "__main__":
-    game = Game(10, 10)
-    game.display()
+    def restart(self):
+        self.maze = Maze(self.maze.width, self.maze.height)
+        self.player = (0, 0)
