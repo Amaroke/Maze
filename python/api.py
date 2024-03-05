@@ -4,7 +4,7 @@ from game import Game
 
 app = Flask(__name__)
 CORS(app)
-game = Game(3, 3)
+game = Game(20, 20)
 
 
 @app.route("/display", methods=["GET"])

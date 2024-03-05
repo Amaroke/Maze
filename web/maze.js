@@ -1,12 +1,8 @@
 async function displayGame() {
     const response = await fetch("http://127.0.0.1:5000/display");
     const gameData = await response.json();
-
-    const laby = await separerLaby(gameData.laby, gameData.taille);
-    const state = gameData.state;
-    document.getElementById("playing").hidden = state[0] == 'V';
-    document.getElementById("win").hidden = state[0] != 'V';
-    const pos_player = gameData.pos_player;
+    const laby = separerLaby(gameData.laby, gameData.taille);
+    displayState(gameData.state);
 
     let contenuTableau = '';
     for (let i = 0; i < laby.length; i++) {
@@ -14,48 +10,24 @@ async function displayGame() {
 
         for (let j = 0; j < ligne.length; j++) {
             const caractere = ligne[j];
-            if (pos_player[0] === j && pos_player[1] === i) {
-                if (caractere === "A") {
-                    contenuTableau += '<div class="caseA player"></div>';
-                } else if (caractere === "B") {
-                    contenuTableau += '<div class="caseB player"></div>';
-                } else if (caractere === "C") {
-                    contenuTableau += '<div class="caseC player"></div>';
-                } else if (caractere === "D") {
-                    contenuTableau += '<div class="caseD player"></div>';
-                }
-            }
-            else {
-                if (caractere === "A") {
-                    contenuTableau += '<div class="caseA"></div>';
-                } else if (caractere === "B") {
-                    contenuTableau += '<div class="caseB"></div>';
-                } else if (caractere === "C") {
-                    contenuTableau += '<div class="caseC"></div>';
-                } else if (caractere === "D") {
-                    contenuTableau += '<div class="caseD"></div>';
-                }
+            if (gameData.pos_player[0] === j && gameData.pos_player[1] === i) {
+                contenuTableau += generateDiv(caractere, true);
+            } else {
+                contenuTableau += generateDiv(caractere, false);
             }
         }
         contenuTableau += '<br>';
     }
 
     document.getElementById("gameDisplay").innerHTML = contenuTableau;
-    document.getElementById("gameStatus").innerText = state;
 
-    var cases = document.querySelectorAll('.gameDisplay > div');
-    cases.forEach(function (caseElement) {
-        caseElement.style.width = 100 / laby.length + '%';
-        caseElement.style.height = 100 / laby.length + '%';
-    });
+    resizeCase(laby.length, laby[0].length);
 }
 
-async function separerLaby(laby, taille) {
-    const tableauLignes = [];
-    for (let i = 0; i < laby.length; i += parseInt(taille)) {
-        tableauLignes.push(laby.substr(i, taille));
-    }
-    return tableauLignes;
+async function displayState(state) {
+    document.getElementById("playing").hidden = state[0] == 'V';
+    document.getElementById("win").hidden = state[0] != 'V';
+    document.getElementById("gameStatus").innerText = state;
 }
 
 async function move(direction, gameData) {
@@ -78,5 +50,30 @@ async function restart() {
     });
     displayGame()
 }
+
+function separerLaby(laby, taille) {
+    const tableauLignes = [];
+    for (let i = 0; i < laby.length; i += parseInt(taille)) {
+        tableauLignes.push(laby.substr(i, taille));
+    }
+    return tableauLignes;
+}
+
+function generateDiv(caractere, isPlayer) {
+    let classes = "case" + caractere;
+    if (isPlayer) {
+        classes += " player";
+    }
+    return `<div class="${classes}"></div>`;
+}
+
+function resizeCase(width, height) {
+    var cases = document.querySelectorAll('.gameDisplay > div');
+    cases.forEach(function (caseElement) {
+        caseElement.style.width = 100 / height + '%';
+        caseElement.style.height = 100 / width + '%';
+    });
+}
+
 
 displayGame();
