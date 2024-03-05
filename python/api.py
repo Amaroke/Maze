@@ -16,11 +16,13 @@ def display():
 def move():
     direction = request.json["direction"]
     game.move(direction)
+    return jsonify()
 
 
 @app.route("/restart", methods=["POST"])
 def restart():
     game.restart()
+    return jsonify()
 
 
 if __name__ == "__main__":
