@@ -1,5 +1,6 @@
 from maze import Maze
 from cell import Cell
+from time import time, strftime
 
 
 class Game:
@@ -8,6 +9,9 @@ class Game:
     def __init__(self, width: int, height: int):
         self.maze = Maze(width, height)
         self.player = (0, 0)
+        self.start = time()
+        self.mini_move = len(self.maze.path)
+        self.number_of_moves = 0
 
     def display(self):
         """A : Il n'y a aucun mur
@@ -70,6 +74,7 @@ class Game:
 
     def move(self, direction: str):
         x, y = self.player
+        self.number_of_moves += 1
         if direction == "right":
             if (x + 1 < self.maze.width) and (
                 (
@@ -107,11 +112,23 @@ class Game:
             ):
                 self.player = (x, y + 1)
 
-    def has_won(self) -> bool:
+    def has_won(self):
         if self.player == (self.maze.width - 1, self.maze.height - 1):
-            return "Vous avez gagné !"
+            elapsed = int(time() - self.start)
+            return (
+                "Vous avez gagné ! \n Temps : "
+                + str(elapsed // 60)
+                + " minutes \n et "
+                + str(elapsed % 60)
+                + " secondes. \n Votre nombre de mouvements était "
+                + str(self.number_of_moves)
+                + " \nalors que le nombre minimal était "
+                + str(self.mini_move)
+            )
         return "Continuer à jouer !"
 
     def restart(self):
         self.maze = Maze(self.maze.width, self.maze.height)
         self.player = (0, 0)
+        self.start = time()
+        self.number_of_moves = 0

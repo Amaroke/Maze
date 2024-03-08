@@ -7,11 +7,16 @@ body {
     background-color: #f0f0f0;
 }
 
+
 button {
     border: none;
     background: none;
     cursor: pointer;
     font-size: 10em;
+}
+
+.global {
+    flex-direction: row;
 }
 
 #win {
