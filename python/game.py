@@ -1,6 +1,7 @@
+import sqlite3
 from maze import Maze
 from cell import Cell
-from time import time, strftime
+from time import time
 
 
 class Game:
@@ -10,8 +11,9 @@ class Game:
         self.maze = Maze(width, height)
         self.player = (0, 0)
         self.start = time()
-        self.mini_move = len(self.maze.path)
+        self.mini_move = len(self.maze.path) - 1
         self.number_of_moves = 0
+        self.pseudo = ""
 
     def display(self):
         """A : Il n'y a aucun mur
@@ -63,7 +65,6 @@ class Game:
                         cells += "B"
                 else:
                     cells += "D"
-        print(cells)
 
         return {
             "laby": cells,
@@ -115,6 +116,19 @@ class Game:
     def has_won(self):
         if self.player == (self.maze.width - 1, self.maze.height - 1):
             elapsed = int(time() - self.start)
+            conn = sqlite3.connect("performances.db")
+            conn.isolation_level = None
+            cur = conn.cursor()
+            cur.execute(
+                """INSERT INTO resultats (Name, Time, Nb_cells, Move_sup) VALUES (?, ?, ?, ?)""",
+                (
+                    self.pseudo,
+                    elapsed,
+                    self.maze.width * self.maze.height,
+                    self.number_of_moves - self.mini_move,
+                ),
+            )
+            conn.close()
             return (
                 "Vous avez gagné ! \n Temps : "
                 + str(elapsed // 60)
@@ -127,8 +141,13 @@ class Game:
             )
         return "Continuer à jouer !"
 
-    def restart(self):
+    def restart(self, pseudo: str, width: int, height: int):
+        if width != "" or height != "":
+            self.maze.width = int(width)
+            self.maze.height = int(height)
         self.maze = Maze(self.maze.width, self.maze.height)
         self.player = (0, 0)
         self.start = time()
         self.number_of_moves = 0
+        self.mini_move = len(self.maze.path) - 1
+        self.pseudo = pseudo

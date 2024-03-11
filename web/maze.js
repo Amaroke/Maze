@@ -1,4 +1,14 @@
+let pseudo = localStorage.getItem("pseudo");
+
+if (pseudo === null) {
+    pseudo = prompt("Entrez votre pseudo");
+    localStorage.setItem("pseudo", pseudo);
+}
+
+restart();
+
 async function displayGame() {
+    document.getElementById("scores").hidden = true;
     const response = await fetch("http://127.0.0.1:5000/display");
     const gameData = await response.json();
     const laby = separerLaby(gameData.laby, gameData.taille);
@@ -46,10 +56,45 @@ async function restart() {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-        }
+        },
+        body: JSON.stringify({ pseudo: pseudo, width: "", height: "" })
     });
     displayGame()
 }
+
+async function modifyPseudo() {
+    pseudo = prompt("Entrez votre nouveau pseudo");
+    localStorage.setItem("pseudo", pseudo);
+    displayGame();
+}
+
+async function modifySize() {
+    let width = prompt("Entrez la largeur du labyrinthe");
+    let height = prompt("Entrez la hauteur du labyrinthe");
+    await fetch("http://127.0.0.1:5000/restart", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ pseudo: pseudo, width: width, height: height })
+    });
+    displayGame();
+}
+
+async function showScore() {
+    const response = await fetch("http://127.0.0.1:5000/scores");
+    const scores = await response.json();
+    let contenuTableau = "";
+    for (let i = 0; i < scores.length; i++) {
+        const score = scores[i] + "";
+        const values = score.split(",");
+        contenuTableau += `<tr><td>${values[1]}</td><td>${values[2]}</td><td>${values[3]}</td><td>${values[4]}</td></tr>`;
+    }
+    document.getElementById("scoreTable").innerHTML = contenuTableau;
+    document.getElementById("gameBoard").hidden = true;
+    document.getElementById("playing").hidden = true;
+}
+
 
 function separerLaby(laby, taille) {
     const tableauLignes = [];

@@ -20,7 +20,7 @@ modifier(creation_sql)
 app = Flask(__name__)
 CORS(app)
 
-game = Game(20, 20)
+game = Game(3, 3)
 
 
 @app.route("/display", methods=["GET"])
@@ -35,9 +35,15 @@ def move():
     return jsonify()
 
 
+@app.route("/scores", methods=["GET"])
+def scores():
+    print(lire("SELECT * FROM resultats"))
+    return jsonify(lire("SELECT * FROM resultats", multiples=True))
+
+
 @app.route("/restart", methods=["POST"])
 def restart():
-    game.restart()
+    game.restart(request.json["pseudo"], request.json["width"], request.json["height"])
     return jsonify()
 
 

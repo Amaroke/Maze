@@ -1,34 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maze</title>
+    <script src="maze.js" defer></script>
+    <link rel="stylesheet" href="maze.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Maze</title>
-  <script src="maze.js" defer></script>
-  <link rel="stylesheet" href="maze.css" />
-</head>
+  <body>
+    <div id="scores">
+      <h1>High Scores</h1>
+      <table id="scoreTable">
+        <tr>
+          <th>Rank</th>
+          <th>Pseudo</th>
+          <th>Score</th>
+        </tr>
+      </table>
+    </div>
 
-<body>
-  <div class="global">
-    <div id="index"></div>
     <div class="gameBoard">
       <div id="gameDisplay" class="gameDisplay"></div>
     </div>
-
 
     <div id="playing">
       <button id="up" onclick="move('up')">⬆️</button>
       <button onclick="move('left')">⬅️</button>
       <button onclick="move('down')">⬇️</button>
       <button onclick="move('right')">➡️</button>
+      <button onclick="modifyPseudo()">Modify Pseudo</button>
+      <button onclick="modifySize()">Modify Size</button>
+      <button onclick="showScore()">Show Scores</button>
     </div>
     <button onclick="restart()" id="win">Restart</button>
     <div>
       <h1 id="gameStatus"></h1>
     </div>
-  </div>
-
-</body>
-
+  </body>
 </html>

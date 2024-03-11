@@ -15,9 +15,6 @@ button {
     font-size: 10em;
 }
 
-.global {
-    flex-direction: row;
-}
 
 #win {
     padding: 2% 5%;
