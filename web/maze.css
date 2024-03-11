@@ -83,6 +83,14 @@
     margin-top: auto;
 }
 
+.end {
+    background-image: url('end.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center top;
+    margin-top: auto;
+}
+
 .up {
     display: flex;
     align-items: center;

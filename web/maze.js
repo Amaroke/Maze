@@ -21,9 +21,11 @@ async function displayGame() {
         for (let j = 0; j < ligne.length; j++) {
             const caractere = ligne[j];
             if (gameData.pos_player[0] === j && gameData.pos_player[1] === i) {
-                contenuTableau += generateDiv(caractere, true);
+                contenuTableau += generateDiv(caractere, true, false);
+            } else if (j == laby[0].length - 1 && i == laby.length - 1) {
+                contenuTableau += generateDiv(caractere, false, true);
             } else {
-                contenuTableau += generateDiv(caractere, false);
+                contenuTableau += generateDiv(caractere, false, false);
             }
         }
         contenuTableau += '<br>';
@@ -112,10 +114,12 @@ function separerLaby(laby, taille) {
     return tableauLignes;
 }
 
-function generateDiv(caractere, isPlayer) {
+function generateDiv(caractere, isPlayer, isEnd) {
     let classes = "case" + caractere;
     if (isPlayer) {
         classes += " player";
+    } else if (isEnd) {
+        classes += " end";
     }
     return `<div class="${classes}"></div>`;
 }

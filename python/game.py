@@ -142,8 +142,8 @@ class Game:
             )
         return "Continuer à jouer !"
 
-    def restart(self, pseudo: str, width: int, height: int):
-        if width != "" or height != "":
+    def restart(self, pseudo: str, width: str, height: str):
+        if (width != "" or height != "") and width.isnumeric() and height.isnumeric():
             self.maze.width = int(width)
             self.maze.height = int(height)
         self.maze = Maze(self.maze.width, self.maze.height)
