@@ -36,7 +36,6 @@ async function displayGame() {
 
 async function displayState(state) {
     document.getElementById("playing").hidden = state[0] == 'V';
-    document.getElementById("win").hidden = state[0] != 'V';
     document.getElementById("gameStatus").innerText = state;
 }
 
@@ -52,6 +51,11 @@ async function move(direction, gameData) {
 }
 
 async function restart() {
+    document.getElementById("scores").hidden = true;
+    document.getElementById("gameDisplay").hidden = false;
+    document.getElementById("gameStatus").hidden = false;
+    document.getElementById("playing").hidden = false;
+    document.getElementById("showScore").hidden = false;
     await fetch("http://127.0.0.1:5000/restart", {
         method: "POST",
         headers: {
@@ -90,9 +94,13 @@ async function showScore() {
         const values = score.split(",");
         contenuTableau += `<tr><td>${values[1]}</td><td>${values[2]}</td><td>${values[3]}</td><td>${values[4]}</td></tr>`;
     }
-    document.getElementById("scoreTable").innerHTML = contenuTableau;
-    document.getElementById("gameBoard").hidden = true;
+    document.getElementById("scores").hidden = false;
+    document.getElementById("scoreTable").innerHTML += contenuTableau;
+    document.getElementById("gameDisplay").hidden = true;
+    document.getElementById("gameStatus").hidden = true;
     document.getElementById("playing").hidden = true;
+    document.getElementById("showScore").hidden = true;
+    document.getElementById("restart").hidden = false;
 }
 
 

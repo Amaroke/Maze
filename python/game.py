@@ -130,14 +130,15 @@ class Game:
             )
             conn.close()
             return (
-                "Vous avez gagné ! \n Temps : "
+                "Vous avez gagné en "
                 + str(elapsed // 60)
-                + " minutes \n et "
+                + " minutes et "
                 + str(elapsed % 60)
-                + " secondes. \n Votre nombre de mouvements était "
+                + " secondes !\nVotre nombre de mouvements était de "
                 + str(self.number_of_moves)
-                + " \nalors que le nombre minimal était "
+                + " alors que le nombre minimal était de "
                 + str(self.mini_move)
+                + " !"
             )
         return "Continuer à jouer !"
 
