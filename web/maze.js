@@ -118,14 +118,14 @@ async function modifySize() {
 async function showScore() {
     const response = await fetch("http://127.0.0.1:5000/scores");
     const scores = await response.json();
-    let contenuTableau = "";
+    let contenuTableau = "<tr><th class='th_score'>Pseudo</th><th class='th_score'>Score</th></tr>";
     for (let i = 0; i < scores.length; i++) {
         const score = scores[i] + "";
         const values = score.split(",");
-        contenuTableau += `<tr><td>${values[1]}</td><td>${values[2]}</td></tr>`;
+        contenuTableau += `<tr><td class='td_score'>${values[1]}</td><td class='td_score'>${values[2]}</td></tr>`;
     }
     document.getElementById("scores").hidden = false;
-    document.getElementById("scoreTable").innerHTML += contenuTableau;
+    document.getElementById("scoreTable").innerHTML = contenuTableau;
     document.getElementById("gameDisplay").hidden = true;
     document.getElementById("gameStatus").hidden = true;
     document.getElementById("playing").hidden = true;

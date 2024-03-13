@@ -13,6 +13,37 @@
     margin-bottom: 3%;
 }
 
+h1 {
+    text-align: center;
+    color: #00a6ed;
+}
+
+.table_score {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    min-width: 500px;
+}
+
+.th_score {
+    border: 4px solid black;
+    padding: 10px;
+    text-align: center;
+    font-size: xx-large;
+}
+
+.td_score {
+    border: 2px solid black;
+    padding: 10px;
+    text-align: center;
+    font-size: x-large;
+}
+
+td {
+    font-weight: bold;
+    color: #333;
+}
+
 .arrows {
     margin-left: 10%;
 }
