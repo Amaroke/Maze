@@ -70,9 +70,9 @@ class Game:
                     cells += "D"
 
         return {
-            "laby": cells,
+            "maze": cells,
             "pos_player": self.player,
-            "taille": self.maze.width,
+            "size": self.maze.width,
             "state": self.has_won(),
             "solution": solution,
         }
@@ -136,7 +136,7 @@ class Game:
                 + str(elapsed % 60)
                 + " seconds !\n Your number of move was "
                 + str(self.number_of_moves)
-                + " while the minimal number of move"
+                + " while the minimal number of move "
                 + str(self.mini_move)
                 + " !"
             )
