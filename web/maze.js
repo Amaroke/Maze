@@ -58,7 +58,7 @@ async function displayGame() {
 }
 
 async function displayState(state) {
-    document.getElementById("playing").hidden = state[0] == 'V';
+    document.getElementById("playing").hidden = state[0] == 'Y';
     document.getElementById("gameStatus").innerText = state;
 }
 

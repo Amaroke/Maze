@@ -130,17 +130,17 @@ class Game:
                 (self.pseudo, score),
             )
             return (
-                "Vous avez gagné en "
+                "You have won in "
                 + str(elapsed // 60)
-                + " minutes et "
+                + " minutes and "
                 + str(elapsed % 60)
-                + " secondes !\nVotre nombre de mouvements était de "
+                + " seconds !\n Your number of move was "
                 + str(self.number_of_moves)
-                + " alors que le nombre minimal était de "
+                + " while the minimal number of move"
                 + str(self.mini_move)
                 + " !"
             )
-        return "Continuer à jouer !"
+        return "Keep playing"
 
     def restart(self, pseudo: str, width: str, height: str):
         if (width != "" or height != "") and width.isnumeric() and height.isnumeric():
