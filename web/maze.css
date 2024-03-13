@@ -91,6 +91,10 @@
     margin-top: auto;
 }
 
+.solution {
+    background-color: #00a6ed;
+}
+
 .up {
     display: flex;
     align-items: center;

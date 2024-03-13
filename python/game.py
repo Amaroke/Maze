@@ -21,6 +21,9 @@ class Game:
         C : Il n'y a pas de murs à droite et un en dessous
         D : Il y a deux murs"""
         cells = ""
+        solution = ""
+        for cell in self.maze.path:
+            solution += str(cell.i) + "," + str(cell.j) + ";"
         for cell in self.maze.cells:
             if cell.j == self.maze.height - 1:
                 if cell.i == self.maze.width - 1:
@@ -71,6 +74,7 @@ class Game:
             "pos_player": self.player,
             "taille": self.maze.width,
             "state": self.has_won(),
+            "solution": solution,
         }
 
     def move(self, direction: str):

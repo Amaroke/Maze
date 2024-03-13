@@ -12,6 +12,20 @@ async function displayGame() {
     const response = await fetch("http://127.0.0.1:5000/display");
     const gameData = await response.json();
     const laby = separerLaby(gameData.laby, gameData.taille);
+    const solution = gameData.solution;
+
+    var coordArray = solution.split(";"); // Diviser la chaîne en un tableau de sous-chaînes
+
+    var coordinates = []; // Initialiser un tableau vide pour stocker les coordonnées
+
+    // Parcourir chaque sous-chaîne pour extraire les coordonnées
+    for (var i = 0; i < coordArray.length; i++) {
+        var coordPair = coordArray[i].split(","); // Diviser la sous-chaîne en un tableau de coordonnées
+        var x = parseFloat(coordPair[0]); // Convertir la première partie en nombre flottant (x)
+        var y = parseFloat(coordPair[1]); // Convertir la deuxième partie en nombre flottant (y) // Créer un objet contenant les coordonnées
+        coordinates.push({ x, y }); // Ajouter l'objet au tableau des coordonnées
+    }
+
     displayState(gameData.state);
 
     let contenuTableau = '';
@@ -20,13 +34,20 @@ async function displayGame() {
 
         for (let j = 0; j < ligne.length; j++) {
             const caractere = ligne[j];
+            let isPlayer = false;
+            let isSolution = false;
+            let isEnd = false;
             if (gameData.pos_player[0] === j && gameData.pos_player[1] === i) {
-                contenuTableau += generateDiv(caractere, true, false);
-            } else if (j == laby[0].length - 1 && i == laby.length - 1) {
-                contenuTableau += generateDiv(caractere, false, true);
-            } else {
-                contenuTableau += generateDiv(caractere, false, false);
+                isPlayer = true;
             }
+            if (j == laby[0].length - 1 && i == laby.length - 1) {
+                isEnd = true;
+            }
+            if (coordinates.some(coord => coord.x === j && coord.y === i)) {
+                isSolution = true;
+            }
+            contenuTableau += generateDiv(caractere, isPlayer, isEnd, (isSolution && localStorage.getItem("solution")));
+
         }
         contenuTableau += '<br>';
     }
@@ -58,6 +79,8 @@ async function restart() {
     document.getElementById("gameStatus").hidden = false;
     document.getElementById("playing").hidden = false;
     document.getElementById("showScore").hidden = false;
+    document.getElementById("showSolution").hidden = false;
+
     await fetch("http://127.0.0.1:5000/restart", {
         method: "POST",
         headers: {
@@ -65,12 +88,17 @@ async function restart() {
         },
         body: JSON.stringify({ pseudo: pseudo, width: "", height: "" })
     });
-    displayGame()
+    displayGame();
 }
 
 async function modifyPseudo() {
     pseudo = prompt("Entrez votre nouveau pseudo");
     localStorage.setItem("pseudo", pseudo);
+    restart();
+}
+
+async function showSolution() {
+    localStorage.setItem("solution", localStorage.getItem("solution") === "true" ? "false" : "true");
     displayGame();
 }
 
@@ -84,7 +112,7 @@ async function modifySize() {
         },
         body: JSON.stringify({ pseudo: pseudo, width: width, height: height })
     });
-    displayGame();
+    restart();
 }
 
 async function showScore() {
@@ -94,7 +122,7 @@ async function showScore() {
     for (let i = 0; i < scores.length; i++) {
         const score = scores[i] + "";
         const values = score.split(",");
-        contenuTableau += `<tr><td>${values[1]}</td><td>${values[2]}</td><td>${values[3]}</td><td>${values[4]}</td></tr>`;
+        contenuTableau += `<tr><td>${values[1]}</td><td>${values[2]}</td></tr>`;
     }
     document.getElementById("scores").hidden = false;
     document.getElementById("scoreTable").innerHTML += contenuTableau;
@@ -103,6 +131,7 @@ async function showScore() {
     document.getElementById("playing").hidden = true;
     document.getElementById("showScore").hidden = true;
     document.getElementById("restart").hidden = false;
+    document.getElementById("showSolution").hidden = true;
 }
 
 
@@ -114,12 +143,16 @@ function separerLaby(laby, taille) {
     return tableauLignes;
 }
 
-function generateDiv(caractere, isPlayer, isEnd) {
+function generateDiv(caractere, isPlayer, isEnd, isSolution) {
     let classes = "case" + caractere;
     if (isPlayer) {
         classes += " player";
-    } else if (isEnd) {
+    }
+    if (isEnd) {
         classes += " end";
+    }
+    if (isSolution === "true") {
+        classes += " solution";
     }
     return `<div class="${classes}"></div>`;
 }
@@ -131,6 +164,3 @@ function resizeCase(width, height) {
         caseElement.style.height = 100 / width + '%';
     });
 }
-
-
-displayGame();
