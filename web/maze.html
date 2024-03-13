@@ -1,56 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Maze</title>
-    <script src="maze.js" defer></script>
-    <link rel="stylesheet" href="maze.css" />
-  </head>
 
-  <body>
-    <div id="scores">
-      <h1>Scores</h1>
-      <table id="scoreTable">
-        <tr>
-          <th>Pseudo</th>
-          <th>Temps</th>
-          <th>Nombre de cellules</th>
-          <th>Nombres de mouvements en trop</th>
-        </tr>
-      </table>
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maze</title>
+  <script src="maze.js" defer></script>
+  <link rel="stylesheet" href="maze.css" />
+</head>
 
-    <div class="main">
-      <h1 id="gameStatus" class="gameStatus"></h1>
+<body>
+  <div id="scores">
+    <h1>Scores</h1>
+    <table id="scoreTable">
+      <tr>
+        <th>Pseudo</th>
+        <th>Score
+      </tr>
+    </table>
+  </div>
 
-      <div class="center">
-        <div class="gameBoard">
-          <div id="gameDisplay" class="gameDisplay"></div>
-        </div>
+  <div class="main">
+    <h1 id="gameStatus" class="gameStatus"></h1>
 
-        <div id="playing" class="arrows">
-          <button class="fleche up" onclick="move('up')">⬆️</button>
-          <div class="bottomarrow">
-            <button class="fleche" onclick="move('left')">⬅️</button>
-            <button class="fleche" onclick="move('down')">⬇️</button>
-            <button class="fleche" onclick="move('right')">➡️</button>
-          </div>
-        </div>
+    <div class="center">
+      <div class="gameBoard">
+        <div id="gameDisplay" class="gameDisplay"></div>
       </div>
 
-      <div class="bottom">
-        <button class="bottombutton" onclick="modifyPseudo()">
-          Modify Pseudo
-        </button>
-        <button class="bottombutton" onclick="modifySize()">Modify Size</button>
-        <button id="showScore" class="bottombutton" onclick="showScore()">
-          Show Scores
-        </button>
-        <button id="restart" class="bottombutton" onclick="restart()" id="win">
-          Restart
-        </button>
+      <div id="playing" class="arrows">
+        <button class="fleche up" onclick="move('up')">⬆️</button>
+        <div class="bottomarrow">
+          <button class="fleche" onclick="move('left')">⬅️</button>
+          <button class="fleche" onclick="move('down')">⬇️</button>
+          <button class="fleche" onclick="move('right')">➡️</button>
+        </div>
       </div>
     </div>
-  </body>
+
+    <div class="bottom">
+      <button class="bottombutton" onclick="modifyPseudo()">
+        Modify Pseudo
+      </button>
+      <button class="bottombutton" onclick="modifySize()">Modify Size</button>
+      <button id="showScore" class="bottombutton" onclick="showScore()">
+        Show Scores
+      </button>
+      <button id="restart" class="bottombutton" onclick="restart()" id="win">
+        Restart
+      </button>
+    </div>
+  </div>
+</body>
+
 </html>

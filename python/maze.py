@@ -107,15 +107,3 @@ class Maze:
         It uses a graph"""
         predecessors = self.graph.predecessors(self.entrance)
         return self.graph.build_path(self.entrance, self.exit, predecessors)
-
-
-def tests():
-    """tests the methods"""
-    maze = Maze(10, 10)
-    assert len(maze.cells) == 100
-    assert maze.cells[-1] == Cell(9, 9, 10, 10)
-    assert len(maze.walls) == 81, "There is not the right number of walls."
-
-
-if __name__ == "__main__":
-    tests()

@@ -3,18 +3,13 @@ from flask_cors import CORS
 from game import Game
 from outils_sql import modifier, lire
 
-creation_sql = """CREATE TABLE IF NOT EXISTS resultats (
+creation_sql = """CREATE TABLE IF NOT EXISTS results (
 	"ID"	INTEGER,
 	"Name"	TEXT,
-	"Time"	INTEGER,
-	"Nb_cells"	INTEGER,
-	"Move_sup"	INTEGER,
+	"Score"  INTEGER, 
 	PRIMARY KEY("ID" AUTOINCREMENT)
 );"""
 
-ajout_sql = (
-    """INSERT INTO resultats (Name, Time, Nb_cells, Move_sup) VALUES (?, ?, ?, ?)"""
-)
 modifier(creation_sql)
 
 app = Flask(__name__)
@@ -37,8 +32,7 @@ def move():
 
 @app.route("/scores", methods=["GET"])
 def scores():
-    print(lire("SELECT * FROM resultats"))
-    return jsonify(lire("SELECT * FROM resultats", multiples=True))
+    return jsonify(lire("SELECT * FROM results", multiples=True))
 
 
 @app.route("/restart", methods=["POST"])
