@@ -26,7 +26,7 @@ class Maze:
         self.path = []
         print(self.__repr__())
         self.entrance = self.cells[0]
-        self.exit = self.cells[len(self.cells) - 1]
+        self.exit = self.cells[-1]
         self.path = self.solve()
         print(self.__repr__())
 
