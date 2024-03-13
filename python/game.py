@@ -136,7 +136,7 @@ class Game:
                 + str(elapsed % 60)
                 + " seconds !\n Your number of move was "
                 + str(self.number_of_moves)
-                + " while the minimal number of move "
+                + " while the minimal was "
                 + str(self.mini_move)
                 + " !"
             )

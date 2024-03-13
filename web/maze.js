@@ -9,7 +9,7 @@ restart();
 
 async function displayGame() {
     document.getElementById("scores").hidden = true;
-    const response = await fetch("http://127.0.0.1:5000/display");
+    const response = await fetch("http://127.0.0.1:5001/display");
     const gameData = await response.json();
     const maze = splitMaze(gameData.maze, gameData.size);
     const solution = gameData.solution;
@@ -60,7 +60,7 @@ async function displayState(state) {
 }
 
 async function move(direction, gameData) {
-    await fetch("http://127.0.0.1:5000/move", {
+    await fetch("http://127.0.0.1:5001/move", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -78,7 +78,7 @@ async function restart() {
     document.getElementById("showScore").hidden = false;
     document.getElementById("showSolution").hidden = false;
 
-    await fetch("http://127.0.0.1:5000/restart", {
+    await fetch("http://127.0.0.1:5001/restart", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -102,7 +102,7 @@ async function showSolution() {
 async function modifySize() {
     let width = prompt("Enter the width of the new maze :");
     let height = prompt("Enter the height of the new maze :");
-    await fetch("http://127.0.0.1:5000/restart", {
+    await fetch("http://127.0.0.1:5001/restart", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -113,7 +113,7 @@ async function modifySize() {
 }
 
 async function showScore() {
-    const response = await fetch("http://127.0.0.1:5000/scores");
+    const response = await fetch("http://127.0.0.1:5001/scores");
     const scores = await response.json();
     let content = "<tr><th class='th_score'>Pseudo</th><th class='th_score'>Score</th></tr>";
     for (let i = 0; i < scores.length; i++) {
